@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Load Chart.js for Dashboard Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-theme="dark">
+    <nav>
+        <div class="logo">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l2-9 5 18 3-10h6"/></svg>
+            VisionAI Analytics
+        </div>
+        <div class="nav-links">
+            <a href="/">Scanner</a>
+            <a href="/dashboard" class="active">Analytics Dashboard</a>
+            <button id="themeToggle" class="theme-toggle" title="Toggle Theme">☀️</button>
+        </div>
+    </nav>
+
+    <main class="container" style="margin-top: 3rem;">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card glass" style="border-top: 4px solid var(--primary);">
+                <h3>Total Images Analyzed</h3>
+                <p id="totalCount" style="color: var(--primary);">0</p>
+            </div>
+            <div class="stat-card glass" style="border-top: 4px solid var(--success);">
+                <h3>Authentic (REAL)</h3>
+                <p id="realCount" style="color: var(--success);">0</p>
+            </div>
+            <div class="stat-card glass" style="border-top: 4px solid var(--danger);">
+                <h3>Manipulated (FAKE)</h3>
+                <p id="fakeCount" style="color: var(--danger);">0</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="card glass">
+                <h2 style="font-size: 1.2rem; margin-bottom: 1rem;">Detection Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+            <div class="card glass">
+                <h2 style="font-size: 1.2rem; margin-bottom: 1rem;">Recent Confidence Trends</h2>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="card glass">
+            <h2 style="margin-bottom: 1.5rem;">Recent Scan History</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thumbnail</th>
+                            <th>Timestamp</th>
+                            <th>Detection Result</th>
+                            <th>Confidence %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable">
+                        <!-- Loaded via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
